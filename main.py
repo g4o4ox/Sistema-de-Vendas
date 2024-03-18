@@ -4,6 +4,7 @@ from tkinter import messagebox
 import data
 #interfaces
 
+
 def main():
     main=Tk()
     main.title('Sistema de Vendas')
@@ -13,39 +14,53 @@ def main():
     label=Label(main,text='Pagina de venda',font='poppins 21',fg='blue').place(y='0',x='0')
     search=Entry(main,width='60').place(y='43',x='505')
     #lista de produtos:
+    def carregar_listbox():
+        data.cursor.execute('SELECT * FROM produtos')
+        rows = data.cursor.fetchall()
+        for row in rows:
+            listbox.insert(END, row)
+            
     def add_product():
         
         def insert_product():
             Preco=pric.get()
             nome=nam.get()
+            Quantidade=quant.get()
             data.cursor.execute('''
-                        INSERT INTO produtos (nome,valor) VALUES(?,?)       
-                                ''',(nome,Preco))
+                        INSERT INTO produtos (nome,valor,quant) VALUES(?,?,?)       
+                                ''',(nome,Preco,Quantidade))
             
             data.conn.commit()
             messagebox.showinfo(title='Status',message='Produto adicionado com sucesso')
             add.destroy()
-        
+
+            
+
         add=Tk()
         add.resizable(False,False)
-        add.geometry('140x280')
+        add.geometry('340x180')
         lab=Label(add,text='Adicionar Produto').pack()
+        lab=Label(add,text='Nome').place(x='35',y='20')
+        lab=Label(add,text='Preço').place(x='35',y='45')
+        lab=Label(add,text='Unid').place(x='35',y='65')
+    
         nam=Entry(add)
         nam.pack()
         pric=Entry(add)
         pric.pack()
+        quant=Entry(add)
+        quant.pack()
         bttn=Button(add,text='Adicionar',command=lambda:insert_product()).pack()
-    
-    
-        
-    
-    listbox=Listbox(main,width=40,height=15,).place(y='60',x='10')
-    listbox=Listbox(main,width=60,height=25).place(y='70',x='505')
-        
+    listbox1=Listbox(main,width=40,height=15,)
+    listbox1.place(y='60',x='10')
+    listbox=Listbox(main,width=60,height=25)
+    listbox.place(y='70',x='505')
+    carregar_listbox()
     #botões
     button1=Button(main,text='Adicionar',bg='green',command=lambda:add_product()).place(x='0',y='620')
     button2=Button(main,text='Remover',bg='red').place(x='87',y='620')
     button3=Button(main,text='Sair',bg='darkred',command=lambda:quit()).place(x='168',y='620')
+    
     
     main.mainloop()
 
@@ -98,7 +113,7 @@ WHERE (user= ? AND pwd= ?)
                 messagebox.showinfo(title='Login',message='Login bem sucedido')
                 login.destroy()
                 main()
-               
+
         except:
                 messagebox.showerror('Login Error','Login não encontrado tente se cadastrar.')
 
