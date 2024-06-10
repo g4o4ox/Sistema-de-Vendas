@@ -119,7 +119,7 @@ WHERE (user= ? AND pwd= ?)
 
     #
     button=Button(login,text='Login',bg='green',command=LoginDatabase).place(y='230',x='150')
-    #button=Button(login,text='Register',bg='#a7d6d5',command=RegisterDatabase).place(y='230',x='230')
+    button=Button(login,text='Register',bg='#a7d6d5',command=RegisterDatabase).place(y='230',x='230')
     login.mainloop()
 
-main()
+login()
