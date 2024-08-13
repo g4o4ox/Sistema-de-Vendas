@@ -19,4 +19,4 @@ CREATE TABLE IF NOT EXISTS produtos(
 );
                ''')
 
-print('\033[32m'+'Banco de dados Conectado')
+print('\033[32m]'+'Banco de dados Conectado')
