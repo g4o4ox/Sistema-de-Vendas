@@ -25,6 +25,9 @@ def main():
         def insert_product():
             Preco=pric.get()
             nome=nam.get()
+            if not Preco and not nome:
+                messagebox.showerror("Campos Vazios","Preencha todos os campos")
+                return
             Quantidade=quant.get()
             data.cursor.execute('''
                         INSERT INTO produtos (nome,valor,quant) VALUES(?,?,?)       
@@ -84,14 +87,14 @@ def login():
         
         User=user_entry.get()
         Password=pswd_entry.get()
+
+        if not User and not Password:
+            messagebox.showerror("Erro de Login","Campos vazios não são aceitos...")
+            return
         
         data.cursor.execute('''
 INSERT INTO users(user,pwd) VALUES(?, ?) 
                             ''',(User,Password))
-        
-        if not User and not Password:
-            messagebox.showerror('Erro de login','Campos vazios não são aceitos')
-            return
         
         data.conn.commit()
         
