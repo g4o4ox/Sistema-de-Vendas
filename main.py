@@ -28,10 +28,9 @@ def main():
             if not Preco and not nome:
                 messagebox.showerror("Campos Vazios","Preencha todos os campos")
                 return
-            Quantidade=quant.get()
             data.cursor.execute('''
-                        INSERT INTO produtos (nome,valor,quant) VALUES(?,?,?)       
-                                ''',(nome,Preco,Quantidade))
+                        INSERT INTO produtos (nome,valor) VALUES(?,?,?)       
+                                ''',(nome,Preco))
             
             data.conn.commit()
             messagebox.showinfo(title='Status',message='Produto adicionado com sucesso')
